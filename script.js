@@ -6,7 +6,6 @@ function subtract (numberOne, numberTwo) {
   return numberOne - numberTwo;
 }
 
-
 function multiply (numberOne, numberTwo) {
   return numberOne * numberTwo;
 }
@@ -15,10 +14,15 @@ function divide (numberOne, numberTwo) {
   return numberOne / numberTwo;
 }
 
-function operate(numberOne, numberTwo, operator) {
+function operate(operator, numberOne, numberTwo) {
   if (operator === "+") {
-    add (numberOne, numberTwo);
+    return numberOne + numberTwo;
+  } else if (operator === "-") {
+    return numberOne - numberTwo;
+  } else if (operator === "*") {
+    return numberOne * numberTwo;
+  } else if (operator === "/") {
+    return numberOne / numberTwo;
   }
 }
 
-console.log(operate(5 + 7));
