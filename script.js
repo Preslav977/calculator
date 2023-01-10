@@ -1,148 +1,89 @@
 //variables
-const displayCalculator = document.getElementById('calculator-display');
-const clearBtn = document.getElementById('clear-btn');
-const backspaceBtn = document.getElementById('backspace-btn');
-const sevenBtn = document.getElementById('seven-btn');
-const eightBtn = document.getElementById('eight-btn');
-const nineBtn = document.getElementById('nine-btn');
-const addBtn = document.getElementById('add-btn');
-const fourBtn = document.getElementById('four-btn');
-const fiveBtn = document.getElementById('five-btn');
-const sixBtn = document.getElementById('six-btn');
-const subtractBtn = document.getElementById('subtract-btn');
-const oneBtn = document.getElementById('one-btn');
-const twoBtn = document.getElementById('two-btn');
-const threeBtn = document.getElementById('three-btn');
-const multiplyBtn = document.getElementById('multiply-btn');
-const zeroBtn = document.getElementById('zero-btn');
-const dotBtn = document.getElementById('dot-btn');
-const equalBtn = document.getElementById('equal-btn');
-const divideBtn = document.getElementById('divide-btn');
+let displayCalculator = document.getElementById("calculator-display");
+let clearBtn = document.getElementById("clear-btn");
+let backspaceBtn = document.getElementById("backspace-btn");
+const sevenBtn = document.getElementById("seven-btn");
+const eightBtn = document.getElementById("eight-btn");
+const nineBtn = document.getElementById("nine-btn");
+let addBtn = document.getElementById("add-btn");
+const fourBtn = document.getElementById("four-btn");
+const fiveBtn = document.getElementById("five-btn");
+const sixBtn = document.getElementById("six-btn");
+let subtractBtn = document.getElementById("subtract-btn");
+const oneBtn = document.getElementById("one-btn");
+const twoBtn = document.getElementById("two-btn");
+const threeBtn = document.getElementById("three-btn");
+let multiplyBtn = document.getElementById("multiply-btn");
+const zeroBtn = document.getElementById("zero-btn");
+const dotBtn = document.getElementById("dot-btn");
+let equalBtn = document.getElementById("equal-btn");
+let divideBtn = document.getElementById("divide-btn");
 
+firstNumber = "";
+secondNumber = "";
+operator = "";
 
-//display numbers event listeners
-oneBtn.addEventListener('click', function () {
-  console.log(displayNumberOne());
-});
-
-twoBtn.addEventListener('click', function () {
-  console.log(displayNumberTwo());
-});
-
-threeBtn.addEventListener('click', function () {
-  console.log(displayNumberThree());
-});
-
-fourBtn.addEventListener('click', function () {
-  console.log(displayNumberFour());
-});
-
-fiveBtn.addEventListener('click', function () {
-  console.log(displayNumberFive());
-});
-
-sixBtn.addEventListener('click', function () {
-  console.log(displayNumberSix());
-});
-
-sevenBtn.addEventListener('click', function () {
-  console.log(displayNumberSeven());
-});
-
-eightBtn.addEventListener('click', function () {
-  console.log(displayNumberEight());
-});
-
-nineBtn.addEventListener('click', function () {
-  console.log(displayNumberNine());
-});
-
-//operand buttons
-addBtn.addEventListener('click', function() {
-  operate(add, operandOne, operandTwo);
-})
-
-
-//simple function for adding, subtracting, multiplying, dividing
-function add (operandOne, operandTwo) {
-  return operandOne + operandTwo;
+function displayCalculatorValues(operandOne, operator, operandTwo) {
+    displayCalculator.textContent = `${operandOne}${operator}${operandTwo}`;
 }
 
-function subtract (operandOne, operandTwo) {
-  return operandOne - operandTwo;
+function saveNumber(operand) {
+  if(operator) {
+    //if exist 
+    operand += secondNumber;
+   //add it to the secondNumber and return it
+   return operand;
+  } else {
+    //if it doesn't exist
+    operand += firstNumber;
+    //add it to the firstNumber and return it
+    return operand;
+  }
 }
 
-function multiply (operandOne, operandTwo) {
-  return operandOne * operandTwo;
+// zeroBtn.addEventListener('click', function () {
+//   console.log(saveNumber("0"));
+//   console.log(displayCalculatorValues("0", operator, "0"));
+// });
+
+oneBtn.addEventListener('click', function() {
+  console.log(saveNumber("1"));
+  console.log(displayCalculatorValues("1", operator, "1"));
+});
+
+
+
+//operate function that checks if the operator
+//has some of the symbols and base on condition
+//calls the methods and returns the result
+
+function operate(operandOne, operator, operandTwo) {
+  if (operator === "+") {
+    return add(operandOne, operandTwo);
+  } else if (operator === "-") {
+    return subtract(operandOne, operandTwo);
+  } else if (operator === "*") {
+    return multiply(operandOne, operandTwo);
+  } else if (operator === "/") {
+    return divide(operandOne, operandTwo);
+  }
 }
 
-function divide (operandOne, operandTwo) {
-  return operandOne / operandTwo;
+//function that does the simply adding,
+//subtracting, multiplying, dividing
+
+function add(operandOne, operandTwo) {
+  return Number(operandOne + operandTwo);
 }
 
-//operate function that calls the other functions 
-// when performing different operations
-function operate(add, operandOne, operandTwo) {
-  add (operandOne, operandTwo)
+function subtract(operandOne, operandTwo) {
+  return Number(operandOne - operandTwo);
 }
 
-
-function displayOnCalculator () {
-  const displayCalculator = document.getElementById('calculator-display');
-  displayCalculator.innerText = 0;
+function multiply(operandOne, operandTwo) {
+  return Number(operandOne * operandTwo);
 }
 
-displayOnCalculator();
-
-
-function displayNumberOne () {
- const displayCalculator = document.getElementById('calculator-display');
- let result = displayCalculator.innerText = 1;
- return result;
+function divide(operandOne, operandTwo) {
+  return Number(operandOne / operandTwo);
 }
-
-
-function displayNumberTwo () {
-  const displayCalculator = document.getElementById('calculator-display');
-  displayCalculator.innerText = 2;
- }
-
- function displayNumberThree () {
-  const displayCalculator = document.getElementById('calculator-display');
-  displayCalculator.innerText = 3;
- }
-
- function displayNumberFour () {
-  const displayCalculator = document.getElementById('calculator-display');
-  displayCalculator.innerText = 4;
- }
-
- function displayNumberFive () {
-  const displayCalculator = document.getElementById('calculator-display');
-  displayCalculator.innerText = 5;
- }
-
- function displayNumberSix () {
-  const displayCalculator = document.getElementById('calculator-display');
-  displayCalculator.innerText = 6;
- }
-
- function displayNumberSeven () {
-  const displayCalculator = document.getElementById('calculator-display');
-  displayCalculator.innerText = 7;
- }
-
- function displayNumberEight () {
-  const displayCalculator = document.getElementById('calculator-display');
-  displayCalculator.innerText = 8;
- }
-
- function displayNumberNine () {
-  const displayCalculator = document.getElementById('calculator-display');
-  displayCalculator.innerText = 9;
- }
-
-
-
-
-
