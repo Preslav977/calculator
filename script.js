@@ -10,33 +10,45 @@ const clearBtn = document.getElementById("clear-btn");
 const calculateNumbers = document.querySelectorAll('.btn-number');
 
 function displayNumbers(e) {
-  displayCalculator.textContent += e.target.textContent;
-  displayValue = displayCalculator.textContent;
-  // console.log(displayValue);
+  displayValue += e.target.textContent;
+  displayCalculator.textContent = displayValue;
 }
 
 calculateNumbers.forEach(btn => {
   btn.addEventListener('click', displayNumbers);
 });
 
-let displayValue = "";
 let operandOne = "";
 let operator = "";
 let operandTwo = "";
+let result = "";
 
 const calculatorOperators = document.querySelectorAll('.btn-operator');
 
 function showCalculations(e) {
   console.log(e.target.textContent);
+  console.log('setting operandOne and operator...');
   if(!operandOne) {
-    operandOne = displayCalculator.textContent;
+    operandOne = displayValue;
     console.log(operandOne);
     operator = e.target.textContent;
-    console.log(operator);
+    console.log('operandOne is', operandOne);
+    console.log('operator is', operator);
+    displayValue = "";
     displayCalculator.textContent = "";
-  } else if (!operandTwo) {
+  } else {
     operandTwo = displayValue;
-    console.log(operandTwo);
+    console.log('setting operandTwo...');
+    displayValue = "";
+    displayCalculator.textContent = "";
+    console.log('operandTwo is', operandTwo);
+    result = operate(operandOne, operator, operandTwo);
+    displayCalculator.textContent = result;
+    operandOne = result;
+    // console.log('result is', result)
+    console.log(operandOne);
+    operator = e.target.textContent;
+    console.log('new operator is', operator);
   }
 }
 
@@ -45,14 +57,22 @@ calculatorOperators.forEach(operator => {
 });
 
 equalBtn.addEventListener('click', function() {
-  console.log(operate(operandOne, operator, operandTwo));
-});
+  });
 
 clearBtn.addEventListener('click', function () {
-  if(displayCalculator.textContent !== "") {
-    displayCalculator.textContent = "";
-  }
+  clearDisplay();
 });
+
+function clearDisplay() {
+    //resets everything
+  displayValue = "";
+  displayCalculator.textContent = "0";
+};
+
+function displayTempValue(value) {
+  displayValue = "";
+  displayCalculator.textContent = value
+};
 
 // backspaceBtn.addEventListener('click', function () {
 // });
@@ -68,6 +88,8 @@ function operate(operandOne, operator, operandTwo) {
     return multiplyOperands(operandOne, operandTwo);
   } else if (operator === "/") {
     return divideOperands(operandOne, operandTwo);
+  } else if (operator === "=") {
+    return displayCalculator.textContent = result;
   }
 }
 
@@ -77,7 +99,7 @@ function addOperands(operandOne, operandTwo) {
   operandOne = Number(operandOne);
   operandTwo = Number(operandTwo);
   return operandOne + operandTwo;
-}
+  }
 
 function subtractOperands(operandOne, operandTwo) {
   operandOne = Number(operandOne);
@@ -96,3 +118,9 @@ function divideOperands(operandOne, operandTwo) {
   operandTwo = Number(operandTwo);
   return operandOne / operandTwo;
 }
+
+displayCalculator.textContent = "0";
+let displayValue = "";
+//When click a number, the number will be appended to this empty string, and 
+//only the number will show in the DOM when displayNumbers runs
+
