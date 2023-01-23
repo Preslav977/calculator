@@ -13,7 +13,7 @@ const calculateNumbers = document.querySelectorAll('.btn-number');
 function displayNumbers(e) {
   displayValue += e.target.textContent;
   displayCalculator.textContent = displayValue;
-  let displayLength = 1000000000000000000;
+  let displayLength = 1000000000000000;
 
   if(displayCalculator.textContent > displayLength) {
     return displayCalculator.textContent = 'ERROR';
@@ -24,13 +24,8 @@ function displayNumbers(e) {
   } else {
     dotBtn.style.pointerEvents = "auto";
   }
-
-  if(displayCalculator.textContent.includes("0")) {
-    zeroBtn.style.pointerEvents = "none";
-  } else {
-    zeroBtn.style.pointerEvents = "auto";
-  }
 }
+
 calculateNumbers.forEach(btn => {
   btn.addEventListener('click', displayNumbers);
 });
