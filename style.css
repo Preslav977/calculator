@@ -88,3 +88,8 @@ body {
   background-color: #223323;
   color: black;
 }
+
+#dot-btn {
+    background-color: #1b2f38;
+    color: #f8fafd;
+}

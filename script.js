@@ -1,8 +1,9 @@
 //variables
 const displayCalculator = document.getElementById("calculator-display");
-const equalBtn = document.getElementById("equal-btn");
 const backspaceBtn = document.getElementById("backspace-btn");
 const clearBtn = document.getElementById("clear-btn");
+const dotBtn = document.getElementById("dot-btn");
+const zeroBtn = document.getElementById("zero-btn");
 
 //selecting all numbers with the class bth-number
 //looping through each one with forEach
@@ -12,16 +13,34 @@ const calculateNumbers = document.querySelectorAll('.btn-number');
 function displayNumbers(e) {
   displayValue += e.target.textContent;
   displayCalculator.textContent = displayValue;
-}
+  let displayLength = 1000000000000000000;
 
+  if(displayCalculator.textContent > displayLength) {
+    return displayCalculator.textContent = 'ERROR';
+  }
+
+  if(displayCalculator.textContent.includes(".")) {
+    dotBtn.style.pointerEvents = "none";
+  } else {
+    dotBtn.style.pointerEvents = "auto";
+  }
+
+  if(displayCalculator.textContent.includes("0")) {
+    zeroBtn.style.pointerEvents = "none";
+  } else {
+    zeroBtn.style.pointerEvents = "auto";
+  }
+}
 calculateNumbers.forEach(btn => {
   btn.addEventListener('click', displayNumbers);
 });
 
+let displayValue = "";
 let operandOne = "";
 let operator = "";
 let operandTwo = "";
 let result = "";
+displayCalculator.textContent = "0";
 
 const calculatorOperators = document.querySelectorAll('.btn-operator');
 
@@ -56,9 +75,6 @@ calculatorOperators.forEach(operator => {
   operator.addEventListener('click', showCalculations);
 });
 
-equalBtn.addEventListener('click', function() {
-  });
-
 clearBtn.addEventListener('click', function () {
   clearDisplay();
 });
@@ -67,12 +83,23 @@ function clearDisplay() {
     //resets everything
   displayValue = "";
   displayCalculator.textContent = "0";
+  if(operandOne && operator && operandTwo 
+    && result) {
+      operandOne = "";
+      operator = "";
+      operandTwo = "";
+      result = "";
+  }
 };
 
 function displayTempValue(value) {
   displayValue = "";
   displayCalculator.textContent = value
 };
+
+calculateNumbers.forEach(btn => {
+  btn.addEventListener('click', displayNumbers);
+});
 
 // backspaceBtn.addEventListener('click', function () {
 // });
@@ -98,29 +125,32 @@ function operate(operandOne, operator, operandTwo) {
 function addOperands(operandOne, operandTwo) {
   operandOne = Number(operandOne);
   operandTwo = Number(operandTwo);
-  return operandOne + operandTwo;
+  return (operandOne + operandTwo).toFixed(2)
   }
 
 function subtractOperands(operandOne, operandTwo) {
   operandOne = Number(operandOne);
   operandTwo = Number(operandTwo);
-  return operandOne - operandTwo;
+  return (operandOne - operandTwo).toFixed(2)
 }
 
 function multiplyOperands(operandOne, operandTwo) {
   operandOne = Number(operandOne);
   operandTwo = Number(operandTwo);
-  return operandOne * operandTwo;
+  return (operandOne * operandTwo).toFixed(2);
 }
 
 function divideOperands(operandOne, operandTwo) {
   operandOne = Number(operandOne);
   operandTwo = Number(operandTwo);
-  return operandOne / operandTwo;
+  if(operandTwo === 0) {
+    return displayCalculator.textContent = "Dividing on 0 is not allowed";
+  }
+  return (operandOne / operandTwo).toFixed(2)
 }
 
-displayCalculator.textContent = "0";
-let displayValue = "";
+// displayCalculator.textContent = "0";
+// let displayValue = "";
 //When click a number, the number will be appended to this empty string, and 
 //only the number will show in the DOM when displayNumbers runs
 
